@@ -10,6 +10,8 @@ const { ValidationError } = require('sequelize');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 
+// !! THIS IS A TEST+
+
 
 const routes = require('./routes');
 
