@@ -1,5 +1,13 @@
 'use strict';
 
+const { SpotImage } = require('../models')
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -12,6 +20,23 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    await SpotImage.bulkCreate([
+      {
+        spotId: 1,
+        url: 'spotimg1.com',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'spotimg2.com',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'spotimg3.com',
+        preview: false
+      }
+    ], { validate: true })
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +46,11 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    options.tableName = 'ReviewImages';
+    const Op = Sequelize.Op;
+
+    return queryInterface.bulkDelete(options, {
+      url: { [Op.in]: ['spotimg1.com', 'spotimg2.com', 'spotimg3.com'] }
+    }, {});
   }
 };
