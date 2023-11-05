@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   SpotImage.init({
+    spotId: DataTypes.INTEGER, // maybe
     url: DataTypes.STRING,
     preview: DataTypes.BOOLEAN
   }, {
