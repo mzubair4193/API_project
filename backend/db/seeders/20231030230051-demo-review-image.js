@@ -32,7 +32,7 @@ module.exports = {
       url: 'sampleImg3.com'
     },
 
-   ])
+   ], {validate: true})
   },
 
   async down (queryInterface, Sequelize) {

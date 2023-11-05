@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       Booking.belongsTo(models.User, {
         foreignKey: 'userId'
       })
-
     }
   }
   Booking.init({
@@ -35,7 +34,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     endDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        postStart(val) {
+          if (val < this.startDate) throw new Error('End date cannot be before start date.')
+        }
+      }
     }
   }, {
     sequelize,
