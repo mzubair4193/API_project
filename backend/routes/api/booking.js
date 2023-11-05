@@ -17,19 +17,23 @@ router.get('/current', requireAuth, async (req, res) => {
     })
     // Convert lat, lng, and price to numbers in each Spot
     currUserBookings.forEach((booking) => {
-        booking.startDate = booking.startDate.toLocaleDateString('en-US', { timeZone });
-        booking.endDate = booking.endDate.toLocaleDateString('en-US', { timeZone });
-        booking.createdAt = booking.createdAt.toLocaleDateString('en-US', { timeZone });
-        booking.updatedAt = booking.updatedAt.toLocaleDateString('en-US', { timeZone });
 
         const spot = booking.Spot;
         spot.lat = parseFloat(spot.lat);
         spot.lng = parseFloat(spot.lng);
         spot.price = parseFloat(spot.price);
-        spot.createdAt = spot.createdAt.toLocaleDateString('en-US', { timeZone });
-        spot.updatedAt = spot.updatedAt.toLocaleDateString('en-US', { timeZone });
+
     });
-    res.status(200).json({ Bookings: currUserBookings })
+    const options = { timeZone: 'CET', year: 'numeric', month: '2-digit', day: '2-digit' }
+
+    const formatCurrBookings = currUserBookings.map((booking) => ({
+        ...booking.toJSON(),
+        startDate: booking.startDate.toLocaleDateString('en-US', options),
+        endDate: booking.endDate.toLocaleDateString('en-US', options),
+        updatedAt: booking.updatedAt.toLocaleString('en-US', { timeZone }),
+        createdAt: booking.createdAt.toLocaleString('en-US', { timeZone })
+    }))
+    res.status(200).json({ Bookings: formatCurrBookings })
 })
 
 //edit a booking
@@ -38,22 +42,23 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
     const { bookingId } = req.params;
     const { user } = req;
     const timeZone = 'EST'
+
     //setup for date comparison
     const newStartDate = new Date(startDate).getTime();
     const newEndDate = new Date(endDate).getTime();
 
     //body validations
-    const errorObj = {};
+    const errObj = {};
 
     if (!startDate) {
-        errorObj.startDate = "Please provide a valid Start Date";
+        errObj.startDate = "Please provide a valid Start Date";
     }
     if (!endDate) {
-        errorObj.endDate = "Please provide a valid End Date";
+        errObj.endDate = "Please provide a valid End Date";
     }
 
-    if (errorObj.startDate || errorObj.endDate) {
-        return res.status(400).json({ message: "Bad Request", errors: errorObj });
+    if (errObj.startDate || errObj.endDate) {
+        return res.status(400).json({ message: "Bad Request", errors: errObj });
     }
 
     //end must come after start
