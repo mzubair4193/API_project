@@ -6,9 +6,10 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -19,17 +20,19 @@ module.exports = {
      * }], {});
     */
     await Spot.bulkCreate([
-       {
+      {
+
         ownerId: 1,
         address: '123 Somewhere St',
         city: 'Phoenix',
         state: 'Arizona',
         country: 'USA',
-        lat: 45.12,
-        lng: 33.44,
+        lat: 23.456453,
+        lng: 45.456433,
         name: 'The Phoenix House',
         description: 'somewhere',
-        price: 990000
+        price: 1000
+
       },
       {
         ownerId: 2,
@@ -37,11 +40,11 @@ module.exports = {
         city: 'Atlanta',
         state: 'Georgia',
         country: 'USA',
-        lat: 60.22,
-        lng: 22.44,
+        lat: 34.65763,
+        lng: 23.35521,
         name: 'The Atlanta House',
         description: 'somewhere',
-        price: 790000
+        price: 790
       },
       {
         ownerId: 3,
@@ -49,16 +52,16 @@ module.exports = {
         city: 'Hollywood',
         state: 'Florida',
         country: 'USA',
-        lat: 25.82,
-        lng: 63.24,
+        lat: 38.23436,
+        lng: 37.35622,
         name: 'The Hollywood House',
         description: 'somewhere',
-        price: 1200000
+        price: 1200
       }
-    ], { validate: true });
+    ], { validate: true })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -67,8 +70,9 @@ module.exports = {
      */
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
+
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: ['1', '2', '3'] }
+      city: { [Op.in]: ['Phoenix', 'Atlanta', 'Hollywood'] }
     }, {});
   }
 };

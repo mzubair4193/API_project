@@ -1,15 +1,13 @@
 'use strict';
-'use strict';
 const { Review } = require('../models');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -61,7 +59,7 @@ module.exports = {
     ], { validate: true })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -72,7 +70,7 @@ module.exports = {
     const Op = Sequelize.Op;
 
     return queryInterface.bulkDelete(options, {
-      stars: { [Op.in]: [1, 3, 5] }
+      stars: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
   }
 };
