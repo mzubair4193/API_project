@@ -14,42 +14,42 @@ const queryFilters = async (req, res, next) => {
         },
     };
     let tripped = false;
-    const err = {};
-    err.message = "Bad Request";
-    err.errors = {};
+    const errorObject = {};
+    errorObject.message = "Bad Request";
+    errorObject.errorObjectors = {};
     //   function isNumber(value) {
     //     return typeof value === "number";
     //   }
     if (page && page < 1) {
-        err.errors.page = "Page must be greater than or equal to 1";
+        errorObject.errorObjectors.page = "Page must be greater than or equal to 1";
         tripped = true;
     }
     if (size && size < 1) {
-        err.errors.size = "Size must be greater than or equal to 1";
+        errorObject.errorObjectors.size = "Size must be greater than or equal to 1";
         tripped = true;
     }
     if (maxLat && maxLat > 90 || maxLat && maxLat < -90) {
-        err.errors.maxLat = "Maximum latitude is invalid";
+        errorObject.errorObjectors.maxLat = "Maximum latitude is invalid";
         tripped = true;
     }
     if (minLat && minLat < -90 || minLat && minLat > 90) {
-        err.errors.minLat = "Minimum latitude is invalid";
+        errorObject.errorObjectors.minLat = "Minimum latitude is invalid";
         tripped = true;
     }
     if (maxLng && maxLng > 180 || maxLng && maxLng < -180) {
-        err.errors.maxLng = "Maximum longitude is invalid";
+        errorObject.errorObjectors.maxLng = "Maximum longitude is invalid";
         tripped = true;
     }
     if (minLng && minLng < -180 || minLng && minLng > 180) {
-        err.errors.minLng = "Minimum longitude is invalid";
+        errorObject.errorObjectors.minLng = "Minimum longitude is invalid";
         tripped = true;
     }
     if (minPrice && minPrice < 0) {
-        err.errors.minPrice = "Minimum price must be greater than or equal to 0";
+        errorObject.errorObjectors.minPrice = "Minimum price must be greater than or equal to 0";
         tripped = true;
     }
     if (maxPrice && maxPrice < 0) {
-        err.errors.maxPrice = "Maximum price must be greater than or equal to 0";
+        errorObject.errorObjectors.maxPrice = "Maximum price must be greater than or equal to 0";
         tripped = true;
     }
     if ((page && isNaN(page)) || (page && page > 10) || !page) page = 1;
@@ -67,8 +67,8 @@ const queryFilters = async (req, res, next) => {
         where,
     };
     if (tripped) {
-        err.status = 400;
-        next(err);
+        errorObject.status = 400;
+        next(errorObject);
     }
 
     next();

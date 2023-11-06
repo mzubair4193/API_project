@@ -11,7 +11,7 @@ const router = express.Router()
 router.get('/current', requireAuth, async (req, res) => {
     const { user } = req
     const timeZone = 'EST'
-    const currUserRevs = await Review.findAll({
+    const currentUserReviews = await Review.findAll({
         where: {
             userId: user.id
         },
@@ -41,7 +41,7 @@ router.get('/current', requireAuth, async (req, res) => {
         ]
     })
     // Convert lat, lng, and price to numbers in each Spot
-    currUserRevs.forEach((review) => {
+    currentUserReviews.forEach((review) => {
         review.createdAt = review.createdAt.toLocaleString('en-US', { timeZone });
         review.updatedAt = review.updatedAt.toLocaleString('en-US', { timeZone });
 
@@ -53,7 +53,7 @@ router.get('/current', requireAuth, async (req, res) => {
         // spot.updatedAt = spot.updatedAt.toLocaleString('en-US', { timeZone });
 
     });
-    res.status(200).json({ Reviews: currUserRevs })
+    res.status(200).json({ Reviews: currentUserReviews })
 })
 
 
@@ -107,19 +107,19 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     }
     const spot = await Spot.findByPk(review.spotId)
     const { url, preview } = req.body
-    const otherRevImgs = await ReviewImage.findAll({
+    const otherReviewImages = await ReviewImage.findAll({
         where: { reviewId: review.id }
     })
 
     if (preview === true) spot.previewImage = url
 
-    if (otherRevImgs.length > 9) {
+    if (otherReviewImages.length > 9) {
         return res.status(403).json({ message: "Maximum number of images for this resource was reached" })
     } else {
-        let newRevImg = await review.createReviewImage({
+        let newReviewImages = await review.createReviewImage({
             url, reviewId: req.params.reviewId
         })
-        res.status(200).json(newRevImg)
+        res.status(200).json(newReviewImages)
     }
 })
 
