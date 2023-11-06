@@ -52,7 +52,7 @@ const checkSpotDetails = [
 
 
 router.get("/", queryFilters, async (req, res) => {
-   const timeZone = 'EST'
+    const timeZone = 'EST'
     const {
         limit,
         offset,
@@ -139,28 +139,22 @@ router.get('/current', requireAuth, async (req, res) => {
         let sum = starRatings.reduce((prevNum, currNum) => prevNum + currNum, 0)
         let avgRating = parseFloat((sum / starRatings.length).toFixed(2))
         spot.avgRating = avgRating ? avgRating : `Spot not rated`
-
-        const spotImage = await SpotImage.findOne({
-            where: {
-                spotId: spot.id
-            }
-        })
-
+        const spotImage = await SpotImage.findOne({ where: { spotId: spot.id } })
         if (spotImage) {
             spot.previewImage = spotImage.url;
         } else {
             spot.previewImage = `No preview image`
         }
-        let deleteReview = spot.toJSON()
-        delete deleteReview.Reviews
-        delete deleteReview.SpotImages
-        deleteReview.lat = parseFloat(deleteReview.lat);
-        deleteReview.lng = parseFloat(deleteReview.lng);
-        deleteReview.price = parseFloat(deleteReview.price);
-        deleteReview.createdAt = deleteReview.createdAt.toLocaleString('en-US', { timeZone });
-        deleteReview.updatedAt = deleteReview.updatedAt.toLocaleString('en-US', { timeZone });
+        let rdel = spot.toJSON()
+        delete rdel.Reviews
+        delete rdel.SpotImages
+        rdel.lat = parseFloat(rdel.lat);
+        rdel.lng = parseFloat(rdel.lng);
+        rdel.price = parseFloat(rdel.price);
+        rdel.createdAt = rdel.createdAt.toLocaleString('en-US', { timeZone });
+        rdel.updatedAt = rdel.updatedAt.toLocaleString('en-US', { timeZone });
 
-        return deleteReview
+        return rdel
     });
 
     addedPropSpots = await Promise.all(addedPropSpots)
@@ -239,8 +233,9 @@ router.post('/', requireAuth, checkSpotDetails, async (req, res) => {
         price
     })
     let spot = newSpot.toJSON()
-
-
+    // if(spot.avgRating === null)
+    // delete spot.avgRating
+    // delete spot.previewImage
     spot.lat = parseFloat(spot.lat);
     spot.lng = parseFloat(spot.lng);
     spot.price = parseFloat(spot.price);
@@ -321,12 +316,12 @@ router.put('/:spotId', requireAuth, checkSpotDetails, async (req, res) => {
     spot.name = name
     spot.description = description
     spot.price = price
-    // spot.createdAt = spot.createdAt.toLocaleString('en-US', { timeZone });
-    // spot.updatedAt = spot.updatedAt.toLocaleString('en-US', { timeZone });
 
 
 
     await spot.save()
+    // spot.updatedAt = spot.updatedAt.toLocaleString('en-US', { timeZone });
+    // spot.createdAt = spot.createdAt.toLocaleString('en-US', { timeZone });
     res.status(200).json({
         id: spot.id,
         ownerId: spot.ownerId,
@@ -389,8 +384,12 @@ router.get('/:spotId/reviews', async (req, res) => {
     })
     // reviews.createdAt = reviews.createdAt.toLocaleString('en-US', { timeZone });
     // reviews.updatedAt = reviews.updatedAt.toLocaleString('en-US', { timeZone });
-
-    res.status(200).json({ Reviews: reviews })
+    const formatRevs = reviews.map((review) => ({
+        ...review.toJSON(),
+        createdAt: review.createdAt.toLocaleString('en-US', { timeZone }),
+        updatedAt: review.updatedAt.toLocaleString('en-US', { timeZone })
+    }))
+    res.status(200).json({ Reviews: formatRevs })
 })
 
 
@@ -411,31 +410,36 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         where: { userId: user.id }
     })
 
-    let currentReview = false
+    let currRev = false
     reviews.forEach(review => {
         let revJ = review.toJSON()
         if (revJ.spotId == spot.id) {
-            currentReview = true
+            currRev = true
         }
     })
 
-    let errorsArr = []
-    if (!review) errorsArr.push("Review text is required")
-    if (!stars) errorsArr.push("Stars must be an integer from 1 to 5")
-    if (errorsArr.length) {
-        res.status(400).json({ message: "Validation error", errorsArr })
+    let errors = []
+    if (!review) errors.push("Review text is required")
+    if (req.body.stars > 5 || req.body.stars < 1 || !stars) errors.push("Stars must be an integer from 1 to 5")
+    if (errors.length) {
+        res.status(400).json({
+            message: "Bad Request", errors: {
+                review: errors[0],
+                stars: errors[1]
+            }
+        })
         return
     }
 
-    if (currentReview) {
+    if (currRev) {
         return res.status(500).json({ message: "User already has a review for this spot" })
     } else {
         const newRev = await spot.createReview({
             userId: user.id,
             spotId, review, stars
         })
-        // newRev.createdAt = newRev.createdAt.toLocaleString('en-US', { timeZone });
-        // newRev.updatedAt = newRev.updatedAt.toLocaleString('en-US', { timeZone });
+        newRev.createdAt = newRev.createdAt.toLocaleString('en-US', { timeZone });
+        newRev.updatedAt = newRev.updatedAt.toLocaleString('en-US', { timeZone });
 
         return res.status(201).json({
             id: newRev.id,
@@ -460,30 +464,31 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 
     if (spot.ownerId === user.id) {
-        const allBook = await Booking.findAll({
+        const allBookings = await Booking.findAll({
             where: { spotId: spot.id },
             include: { model: User, attributes: ['id', 'firstName', 'lastName'] }
         })
-        const formatBook = allBook.map(booking => ({
+        const formattedBookings = allBookings.map(booking => ({
             spotId: booking.spotId,
             startDate: booking.startDate.toLocaleDateString(),
             endDate: booking.endDate.toLocaleDateString()
         }));
 
-        return res.status(200).json({ Bookings: formatBook });
+        return res.status(200).json({ Bookings: formattedBookings });
     }
     if (spot.ownerId !== user.id) {
-        const allBook = await Booking.findAll({
+        const allBookings = await Booking.findAll({
             where: { spotId: spot.id },
             attributes: ['spotId', 'startDate', 'endDate']
         })
-        const formatBook = allBook.map(booking => ({
+        const options = { timeZone: 'GMT', year: 'numeric', month: '2-digit', day: '2-digit' }
+        const formattedBookings = allBookings.map(booking => ({
             spotId: booking.spotId,
-            startDate: booking.startDate.toLocaleDateString('en-US', { timeZone }),
-            endDate: booking.endDate.toLocaleDateString('en-US', { timeZone })
+            startDate: booking.startDate.toLocaleDateString('en-US', options),
+            endDate: booking.endDate.toLocaleDateString('en-US', options)
         }));
 
-        return res.status(200).json({ Bookings: formatBook });
+        return res.status(200).json({ Bookings: formattedBookings });
     }
 })
 
@@ -623,13 +628,13 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
     body.userId = userId;
     body.spotId = spot.id;
-
+    const options = { timeZone: 'GMT', year: 'numeric', month: '2-digit', day: '2-digit' }
     const newBooking = await Booking.create(body);
     await newBooking.save()
     const formattedBooking = {
         ...newBooking.dataValues,
-        startDate: newBooking.startDate.toLocaleDateString('en-US', { timeZone }),
-        endDate: newBooking.endDate.toLocaleDateString('en-US', { timeZone }),
+        startDate: newBooking.startDate.toLocaleDateString('en-US', options),
+        endDate: newBooking.endDate.toLocaleDateString('en-US', options),
         createdAt: newBooking.createdAt.toLocaleString('en-US', { timeZone }),
         updatedAt: newBooking.updatedAt.toLocaleString('en-US', { timeZone }),
     };
