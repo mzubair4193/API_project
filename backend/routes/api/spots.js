@@ -80,13 +80,13 @@ router.get("/", queryFilters, async (req, res) => {
     });
 
     const spotsJSON = spots.map((ele) => {
-        const spotData = ele.toJSON()
-        spotData.lat = parseFloat(spotData.lat);
-        spotData.lng = parseFloat(spotData.lng);
-        spotData.price = parseFloat(spotData.price);
-        spotData.updatedAt = spotData.updatedAt.toLocaleString('en-US', { timeZone })
-        spotData.createdAt = spotData.createdAt.toLocaleString('en-US', { timeZone })
-        return spotData
+        const spotInfo = ele.toJSON()
+        spotInfo.lat = parseFloat(spotInfo.lat);
+        spotInfo.lng = parseFloat(spotInfo.lng);
+        spotInfo.price = parseFloat(spotInfo.price);
+        spotInfo.updatedAt = spotInfo.updatedAt.toLocaleString('en-US', { timeZone })
+        spotInfo.createdAt = spotInfo.createdAt.toLocaleString('en-US', { timeZone })
+        return spotInfo
     });
 
     for (let i = 0; i < spotsJSON.length; i++) {
@@ -126,7 +126,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: [Review, SpotImage]
     })
-    let addedPropSpots = spots.map(async (spot) => {
+    let spotsProperties = spots.map(async (spot) => {
         let reviews = spot.toJSON().Reviews
         let starRatings = []
         let reviewArr = []
@@ -157,10 +157,10 @@ router.get('/current', requireAuth, async (req, res) => {
         return rdel
     });
 
-    addedPropSpots = await Promise.all(addedPropSpots)
+    spotsProperties = await Promise.all(spotsProperties)
 
     res.status(200).json({
-        "Spots": addedPropSpots
+        "Spots": spotsProperties
     })
 })
 
@@ -515,14 +515,14 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     });
 
-    const newStart = new Date(body.startDate);
-    const newEnd = new Date(body.endDate);
+    const newStartingDate = new Date(body.startDate);
+    const newEndingDate = new Date(body.endDate);
 
     for (const currBooking of bookings) {
-        const currStartDate = new Date(currBooking.startDate);
-        const currEndDate = new Date(currBooking.endDate);
+        const currentStartDate = new Date(currBooking.startDate);
+        const currentEndDate = new Date(currBooking.endDate);
 
-        if (newStart.getTime() === currStartDate.getTime() && newEnd.getTime() === currEndDate.getTime()) {
+        if (newStartingDate.getTime() === currentStartDate.getTime() && newEndingDate.getTime() === currentEndDate.getTime()) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -532,7 +532,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newStart.getTime() === currStartDate.getTime()) {
+        if (newStartingDate.getTime() === currentStartDate.getTime()) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -541,7 +541,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newStart.getTime() === currEndDate.getTime()) {
+        if (newStartingDate.getTime() === currentEndDate.getTime()) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -550,7 +550,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newEnd.getTime() === currStartDate.getTime()) {
+        if (newEndingDate.getTime() === currentStartDate.getTime()) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -559,7 +559,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newEnd.getTime() === currEndDate.getTime()) {
+        if (newEndingDate.getTime() === currentEndDate.getTime()) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -568,7 +568,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newStart > currStartDate && newEnd < currEndDate) {
+        if (newStartingDate > currentStartDate && newEndingDate < currentEndDate) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -578,7 +578,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newStart >= currStartDate && newStart < currEndDate) {
+        if (newStartingDate >= currentStartDate && newStartingDate < currentEndDate) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -587,7 +587,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newEnd > currStartDate && newEnd <= currEndDate) {
+        if (newEndingDate > currentStartDate && newEndingDate <= currentEndDate) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -596,7 +596,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             });
         }
 
-        if (newStart <= currStartDate && newEnd >= currEndDate) {
+        if (newStartingDate <= currentStartDate && newEndingDate >= currentEndDate) {
             return res.status(403).json({
                 message: "Sorry, this spot is already booked for the specified dates",
                 errors: {
@@ -607,7 +607,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     }
 
-    if (newStart.getTime() === newEnd.getTime()) {
+    if (newStartingDate.getTime() === newEndingDate.getTime()) {
         return res.status(400).json({
             message: "Bad Request",
             errors: {
@@ -617,7 +617,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         });
     }
 
-    if (newEnd.getTime() < newStart.getTime()) {
+    if (newEndingDate.getTime() < newStartingDate.getTime()) {
         return res.status(400).json({
             message: "Bad Request",
             errors: {
