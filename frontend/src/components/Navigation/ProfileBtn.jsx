@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import './ProfileButton.css'
+import './ProfileBtn.css'
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();

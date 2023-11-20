@@ -1,0 +1,16 @@
+html{
+  background-color: hsla(0, 0%, 100%, 0.726);
+}
+
+.buttoncontainer{
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  background-color: red;
+}
+
+.fa-airbnb{
+  color: rgb(255, 56, 92);
+  height: 10px;
+
+}

@@ -1,0 +1,11 @@
+.loginHeader{
+  display: flex;
+  justify-content: center;
+}
+
+.loginSubmit{
+  display: flex;
+  background-color: aqua;
+  columns: auto;
+}
+
