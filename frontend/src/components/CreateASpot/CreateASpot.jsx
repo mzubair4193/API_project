@@ -23,7 +23,7 @@ function CreateASpot() {
     const [imgFour, setImgFour] = useState("")
     const [imgFive, setImgFive] = useState("")
     const [errors, setErrors] = useState([])
-    const allowedExtentions = [".jpg", ".jpeg", ".png"]
+    const allowedExtentions = [".jpeg",".jpg", ".png"]
     const errs = []
     const imgs = []
     if (prevImg) imgs.push(prevImg)
@@ -87,11 +87,11 @@ function CreateASpot() {
         }
         console.log(errors)
         if (!errors.length) {
-            console.log("preres")
+            // console.log("preres")
             const res = await dispatch(createNewSpot(spot))
-            console.log("inside if statement")
+            // console.log("inside if statement")
             if (res) dispatch(newSpotImage(previewImg, res.id))
-            console.log("res spot", res)
+            // console.log("res spot", res)
 
             if (imgTwo) {
                 const newImg = {
@@ -122,8 +122,8 @@ function CreateASpot() {
                 dispatch(newSpotImage(newImg, res.id))
             }
 
-            console.log("Spot post imgs: ", spot)
-            console.log("prenav")
+            // console.log("Spot post imgs: ", spot)
+            // console.log("prenav")
             dispatch(spotDetailsFetch(res.id))
             navigate(`/spots/${res.id}`)
 
