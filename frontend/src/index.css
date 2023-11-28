@@ -1,1 +1,6 @@
 /* TODO: Add sitewide styles */
+body{
+  max-width: 1024px;
+  background-color: #FFFFF0;
+  display: inline;
+}

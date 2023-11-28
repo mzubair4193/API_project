@@ -1,0 +1,39 @@
+.reviewContainer {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.reviewHeader {
+  /* outline: 3px solid red; */
+  display: inline-flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.reviewHeader .fa-solid.fa-star {
+  padding-top: 4px;
+  gap: 5px;
+}
+
+button {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 4px 8px 4px 8px;
+  background-color: #ecc061;
+  margin-bottom: 3px;
+  color: rgb(240, 211, 194);
+}
+
+/* .postReviewContainer{
+  color: red;
+} */
+
+.deleteReviewContainer{
+  padding-top: 5px;
+}

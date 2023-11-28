@@ -1,0 +1,72 @@
+.spotContainer {
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0px 5px 5px 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.spotContainer:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 2);
+  border-radius: 20px;
+}
+
+.updateDelete {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.deleteButton .button {
+  width: fit-content;
+  padding: 4px 8px 4px 8px;
+  background-color: rgb(35, 28, 28);
+  border-radius: 20px;
+  outline: 1px solid black;
+  color: white;
+  text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
+}
+
+.deleteButton .button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.updateASpot {
+  border-radius: 20px;
+  padding: 4px 8px 4px 8px;
+  background-color: #414143;
+  margin-bottom: 3px;
+}
+
+.updateASpot:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.updateNavLink {
+  text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
+  color: white;
+  text-decoration: none;
+}
+
+.returnHome {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  font-size: 12px;
+  margin: auto;
+}

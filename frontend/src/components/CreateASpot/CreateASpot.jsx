@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createNewSpot, getAllSpotsFetch, newSpotImage, spotDetailsFetch } from "../../store/spots"
-
+import './CreateASpot.css'
 
 function CreateASpot() {
     const dispatch = useDispatch()
@@ -18,19 +18,19 @@ function CreateASpot() {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [prevImg, setPrevImg] = useState("")
-    const [imgTwo, setImgTwo] = useState("")
-    const [imgThree, setImgThree] = useState("")
-    const [imgFour, setImgFour] = useState("")
-    const [imgFive, setImgFive] = useState("")
+    const [imageTwo, setImageTwo] = useState("")
+    const [imageThree, setImageThree] = useState("")
+    const [imageFour, setImageFour] = useState("")
+    const [imageFive, setImageFive] = useState("")
     const [errors, setErrors] = useState([])
-    const allowedExtentions = [".jpeg",".jpg", ".png"]
+    const allowedExtentions = [".jpg", ".jpeg", ".png"]
     const errs = []
     const imgs = []
     if (prevImg) imgs.push(prevImg)
-    if (imgTwo) imgs.push(imgTwo)
-    if (imgThree) imgs.push(imgThree)
-    if (imgFour) imgs.push(imgFour)
-    if (imgFive) imgs.push(imgFive)
+    if (imageTwo) imgs.push(imageTwo)
+    if (imageThree) imgs.push(imageThree)
+    if (imageFour) imgs.push(imageFour)
+    if (imageFive) imgs.push(imageFive)
 
     useEffect(() => {
         dispatch(getAllSpotsFetch())
@@ -59,9 +59,10 @@ function CreateASpot() {
                     break
                 }
             }
-            if (!validExt) errs.push("Image must have a valid extention")
+            if (!validExt) errs.push("Image must have a valid extension")
         }
         setErrors(errs)
+        console.log(errors)
         // return errors.length === 0
     }
 
@@ -87,43 +88,43 @@ function CreateASpot() {
         }
         console.log(errors)
         if (!errors.length) {
-            // console.log("preres")
+            console.log("preres")
             const res = await dispatch(createNewSpot(spot))
-            // console.log("inside if statement")
+            console.log("inside if statement")
             if (res) dispatch(newSpotImage(previewImg, res.id))
-            // console.log("res spot", res)
+            console.log("res spot", res)
 
-            if (imgTwo) {
+            if (imageTwo) {
                 const newImg = {
-                    url: imgTwo,
+                    url: imageTwo,
                     preview: false
                 }
                 dispatch(newSpotImage(newImg, res.id))
             }
-            if (imgThree) {
+            if (imageThree) {
                 const newImg = {
-                    url: imgThree,
+                    url: imageThree,
                     preview: false
                 }
                 dispatch(newSpotImage(newImg, res.id))
             }
-            if (imgFour) {
+            if (imageFour) {
                 const newImg = {
-                    url: imgFour,
+                    url: imageFour,
                     preview: false
                 }
                 dispatch(newSpotImage(newImg, res.id))
             }
-            if (imgFive) {
+            if (imageFive) {
                 const newImg = {
-                    url: imgFive,
+                    url: imageFive,
                     preview: false
                 }
                 dispatch(newSpotImage(newImg, res.id))
             }
 
-            // console.log("Spot post imgs: ", spot)
-            // console.log("prenav")
+            console.log("Spot post imgs: ", spot)
+            console.log("prenav")
             dispatch(spotDetailsFetch(res.id))
             navigate(`/spots/${res.id}`)
 
@@ -137,29 +138,33 @@ function CreateASpot() {
             setName("")
             setPrice("")
             setPrevImg("")
-            setImgTwo("")
-            setImgThree("")
-            setImgFour("")
-            setImgFive("")
+            setImageTwo("")
+            setImageThree("")
+            setImageFour("")
+            setImageFive("")
 
         }
     }
 
     return (
         <div className='formContainer'>
-            <form className='createSpotForm' onSubmit={handleSubmit}>
-                <div className='firstBox'>
+            <form className='createSpotContainer' onSubmit={handleSubmit}>
+                <div className='firstContainer'>
                     <div className='formText'>
                         <h1>Create A Spot</h1>
-                        <h2>Wheres your place located?</h2>
+                        <h2>Where&apos;s your place located?</h2>
                         <p>Guests will only get your exact address once they booked a reservation</p>
                     </div>
                     <label>
-                        {errors.find((error) => error.includes("Country"))}
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>Country</p>
+                            <p className="error">{errors.find((error) => error && error.includes("Country"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder="Country"
                             className='country'
+                            id='inputText'
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                             required
@@ -167,51 +172,69 @@ function CreateASpot() {
 
                     </label>
                     <label>
-                        {errors.find((error) => error.includes("Address"))}
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>Address</p>
+                            <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder='Address'
                             className='address'
+                            id='inputText'
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                         ></input>
 
                     </label>
                     <label className="citystate">
-                        {errors.find((error) => error.includes("Address", "State"))}
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>City</p>
+                            <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder="City"
                             className='city'
+                            id='inputText'
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         ></input>
-
-                        ,
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>State</p>
+                            <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder="State"
                             className="state"
+                            id='inputText'
                             value={state}
                             onChange={(e) => setState(e.target.value)}
                         ></input>
 
                     </label>
                     <label className="latlng">
-                        {errors.find((error) => error.includes("Latitude"))}
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>Latitude</p>
+                            <p className="error">{errors.find((error) => error.includes("Latitude"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder="Latitude"
                             className="lat"
+                            id='inputText'
                             value={lat}
                             onChange={(e) => setLat(e.target.value)}
                         ></input>
-                        ,
-                        {errors.find((error) => error.includes("Longitude"))}
+                        <div className='titleAndErrors'>
+                            <p className='locaInputs'>Longitude</p>
+                            <p className="error">{errors.find((error) => error.includes("Longitude"))}</p>
+                        </div>
                         <input
                             type='text'
                             placeholder="Longitude"
                             className="lng"
+                            id='inputText'
                             value={lng}
                             onChange={(e) => setLng(e.target.value)}
                         ></input>
@@ -220,77 +243,102 @@ function CreateASpot() {
                 <div className='descriptionBox'>
                     <h2>Describe your place to guests</h2>
                     <p>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood</p>
-                    {errors.find((error) => error.includes("Description"))}
-                    <input
-                        type='textarea'
+                    <div className='titleAndErrors'>
+                        <p className='locaInputs'>Description</p>
+                        <p className="error">{errors.find((error) => error.includes("Description"))}</p>
+                    </div>
+                    <textarea
+                        type='text'
                         placeholder="Please write at least 30 characters"
                         className="desc"
+                        id='inputText'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className='titleBox'>
                     <h2>Create a title for your spot</h2>
                     <p>Catch guests attention with a spot title that highlights what makes your place special.</p>
-                    {errors.find((error) => error.includes("Title"))}
+                    <div className='titleAndErrors'>
+                        <p className='locaInputs'>Title</p>
+                        <p className='error'>{errors.find((error) => error.includes("Title"))}</p>
+                    </div>
                     <input
                         type='text'
                         placeholder="Name of your spot"
+                        id='inputText'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </div>
-                <div className="priceBox">
+                <div className="priceContainer">
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-                    {errors.find((error) => error.includes("Price"))}
-                    $<input
-                        type="text"
-                        placeholder="Price per night(USD)"
-                        className='price'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                    ></input>
+                    <div className='titleAndErrors'>
+                        <p className='locaInputs'>Price</p>
+                        <p className="error">{errors.find((error) => error.includes("Price"))}</p>
+                    </div>
+                    <div className='priceContainer'>
+                        $ <input
+                            type="text"
+                            placeholder="Price per night(USD)"
+                            id='inputText'
+                            className='priceInput'
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                        ></input>
+                    </div>
                 </div>
-                <div className='imgs'>
+                <div className='updateImgs'>
                     <h2>Liven up your spot with photos</h2>
                     <p>Submit a link to at least one photo to publish your spot</p>
-                    {errors.find((error) => error.includes("Preview"))}
-                    {errors.find((error) => error.includes("Image"))}
+                    <div className='titleAndErrors'>
+                        <p className='locaInputs'>Preview Image</p>
+                        <p className="error">{errors.find((error) => error.includes("Preview"))}</p>
+                        <p className="error">{errors.find((error) => error.includes("Image"))}</p>
+                    </div>
                     <input
                         type='text'
                         placeholder="Preview Image URL"
-                        className='mainImg'
+                        id='inputText'
                         value={prevImg}
                         onChange={(e) => setPrevImg(e.target.value)}
                     ></input>
+                    <p className='locaInputs'>Image 1</p>
                     <input
                         type="text"
                         placeholder="Image URL"
-                        value={imgTwo}
-                        onChange={(e) => setImgTwo(e.target.value)}
+                        id='inputText'
+                        value={imageTwo}
+                        onChange={(e) => setImageTwo(e.target.value)}
                     ></input>
+                    <p className='locaInputs'>Image 2</p>
                     <input
                         type="text"
                         placeholder="Image URL"
-                        value={imgThree}
-                        onChange={(e) => setImgThree(e.target.value)}
+                        id='inputText'
+                        value={imageThree}
+                        onChange={(e) => setImageThree(e.target.value)}
                     ></input>
+                    <p className='locaInputs'>Image 3</p>
                     <input
                         type="text"
                         placeholder="Image URL"
-                        value={imgFour}
-                        onChange={(e) => setImgFour(e.target.value)}
+                        id='inputText'
+                        value={imageFour}
+                        onChange={(e) => setImageFour(e.target.value)}
                     ></input>
+                    <p className='locaInputs'>Image 4</p>
                     <input
                         type="text"
                         placeholder="Image URL"
-                        value={imgFive}
-                        onChange={(e) => setImgFive(e.target.value)}
+                        id='inputText'
+                        value={imageFive}
+                        onChange={(e) => setImageFive(e.target.value)}
                     ></input>
                 </div>
-                <div className='casButton'>
-                    <button type='submit' className='cas' onClick={validateInputs}>
+                <div className='createButton'>
+                    <button type='submit' className='createSpotBtn' onClick={validateInputs}>
                         Create Spot
                     </button>
                 </div>

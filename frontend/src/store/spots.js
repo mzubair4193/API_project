@@ -27,23 +27,22 @@ const createSpot = (payload) => {
     }
 }
 
-const createSI = (payload) => {
-    return {
-        type: CREATE_SI,
-        payload
-    }
-}
-
 const updateSpot = (payload) => {
     return {
         type: UPDATE_A_SPOT,
         payload
     }
 }
-
 const deleteSpot = (payload) => {
     return {
         type: DELETE_A_SPOT,
+        payload
+    }
+}
+
+const createSI = (payload) => {
+    return {
+        type: CREATE_SI,
         payload
     }
 }
@@ -86,6 +85,18 @@ export const createNewSpot = (payload) => async (dispatch) => {
     }
 }
 
+export const deleteCurrSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        dispatch(deleteSpot(spotId))
+    } else {
+        const errs = res.json()
+        return errs
+    }
+}
+
 export const newSpotImage = (img, spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: "POST",
@@ -112,18 +123,6 @@ export const spotUpdate = (updatedDetails, spotId) => async (dispatch) => {
         return updatedSpot
     } else {
         const errs = await res.json()
-        return errs
-    }
-}
-
-export const deleteCurrSpot = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}`, {
-        method: "DELETE"
-    })
-    if (res.ok) {
-        dispatch(deleteSpot(spotId))
-    } else {
-        const errs = res.json()
         return errs
     }
 }

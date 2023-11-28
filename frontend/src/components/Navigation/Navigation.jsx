@@ -11,33 +11,30 @@ import '../OpenModalButton/OpenModalButton.css'
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
     const [showMenu, setShowMenu] = useState(false);
-    const ulRef = useRef();
+    const listRef = useRef();
 
     const toggleMenu = (e) => {
-        e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
-        // if (!showMenu) setShowMenu(true);
+        e.stopPropagation();
         setShowMenu(!showMenu);
     };
 
     useEffect(() => {
         if (!showMenu) return;
-
         const closeMenu = (e) => {
-            // console.log('clicked: ' (e.target))
-            if (!ulRef.current.contains(e.target)) {
+            if (!listRef.current.contains(e.target)) {
                 setShowMenu(false);
             }
         };
         console.log(showMenu)
         document.addEventListener('click', closeMenu);
-
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
-    const ulClassName = "nav-dropdown" + (showMenu ? "" : " hidden");
+    const listClassName = "navigationTop" + (showMenu ? "" : " hidden");
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
             <>
+                {/* <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink> */}
                 <ProfileButton user={sessionUser} />
             </>
         );
@@ -50,17 +47,17 @@ function Navigation({ isLoaded }) {
                         <i className="fa-solid fa-bars"></i>
                         <i className="fa-regular fa-user"></i>
                     </button>
-                    <ul className={ulClassName} ref={ulRef}>
-                        <div className='buttoncontainer'>
+                    <ul className={listClassName} ref={listRef}>
+                        <div className='buttonContainer'>
                             <OpenModalButton
                                 buttonText="Log In"
-                                className='login'
+                                className='loginModal'
                                 modalComponent={<LoginFormModal />}
                             />
 
                             <OpenModalButton
                                 buttonText="Sign Up"
-                                className='signup'
+                                className='signupModal'
                                 modalComponent={<SignupFormModal />}
                             />
 
@@ -74,18 +71,12 @@ function Navigation({ isLoaded }) {
     }
     //blah
     return (
-        <ul className='navbar'>
+        <ul className='navigationBar'>
             <>
-                <NavLink to="/" className='homelink'><i className="fa-brands fa-airbnb"></i> YurrBnB </NavLink>
+                <NavLink to="/" className='logoLink'><i className="fa-brands fa-airbnb"></i> YurrBnB </NavLink>
             </>
-            {/* <ul>
 
-            <button onClick={toggleMenu}>
-                <i className="fa-solid fa-bars"></i>
-                <i className="fa-regular fa-user"></i>
-                </button>
-            </ul> */}
-            <div className='newSpotAndMenu'>
+            <div className='newSpotNav'>
                 <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink>
                 {isLoaded && sessionLinks}
             </div>

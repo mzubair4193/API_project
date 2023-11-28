@@ -4,6 +4,8 @@ import { getAllSpotsFetch } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteModal from "../DeleteSpotModal/DeleteSpotModal";
+import './ManageSpots.css'
+
 
 function ManageUserSpots() {
     const dispatch = useDispatch()
@@ -21,15 +23,15 @@ function ManageUserSpots() {
 
     const usersSpots = spots.filter((spot) => spot.ownerId === user.id)
 
-    const usersSpotsDisplay = usersSpots?.map((spot) => (
+    const manageSpotDisplay = usersSpots?.map((spot) => (
         <div key={spot?.id} className="spotContainer">
-            <NavLink to={`/spots/${spot?.id}`}>
-                <div className='imgContainer'>
-                    <div className='toolTip' title={spot.name}>
+            <NavLink to={`/spots/${spot.id}`}>
+                <div className='imageContainer'>
+                    <div className='spotPreview' title={spot.name}>
                         <img src={spot.previewImage} className='prevImg' />
                     </div>
                 </div>
-                <div className='locaPrice'>
+                <div className='spotPrice'>
                     <p className='location'>{spot.city}, {spot.state}</p>
                     <p className='price'>${spot.price}.00 night</p>
                 </div>
@@ -40,14 +42,16 @@ function ManageUserSpots() {
                 </div>
             </NavLink >
             <div className='updateDelete'>
-                <NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink>
+                <button className='updateASpot'>
+                    <NavLink to={`/spots/${spot.id}/edit`} className='updateNavLink'>Update</NavLink>
+                </button>
                 <div className='deleteButton'><OpenModalButton buttonText={"Delete"} modalComponent={<DeleteModal spot={spot} />} /></div>
             </div>
         </div >
     ))
     return (
-        <div className='returnPage'>
-            <div className='manage'>{usersSpotsDisplay}</div>
+        <div className='returnHome'>
+            <div className='manage'>{manageSpotDisplay}</div>
         </div>
     )
 }

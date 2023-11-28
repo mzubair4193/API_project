@@ -2,6 +2,6 @@ button {
 cursor: pointer;
 text-align: center;
 border: none;
-border-radius: 5px;
-background-color: beige;
+border-radius: 18px;
+background-color: rgb(231, 150, 63);
 }

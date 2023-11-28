@@ -1,0 +1,146 @@
+.spotInfoContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: auto;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.spotName {
+  display: flex;
+}
+
+.firstSet {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+.otherImgs2 {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: fit-content
+}
+
+.otherImages {
+  display: flex;
+  border-radius: 2px;
+}
+
+.imageContainer {
+  display: flex;
+}
+
+.mainImg {
+  width: 500px;
+  height: 310px;
+  border-radius: 2px;
+  border: 2px solid black;
+  margin-top: 3px;
+}
+
+#allImages {
+  display: flex;
+  width: 240px;
+  height: 150px
+}
+
+.reserve {
+  display: inline-flex;
+  border: 3px solid black;
+  border-radius: 20px;
+  flex-direction: column;
+  width: 350px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  height: fit-content;
+  background-color: white;
+}
+
+.notReserve {
+  display: flex;
+}
+
+.reviewInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.reserveInfo {
+  display: flex;
+  width: 350px;
+  justify-content: space-between;
+  margin: 0px 20px 0px 20px;
+  align-items: center;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.reviewInfo .fa-solid.fa-star {
+  margin-top: 5px;
+}
+
+.reviewCount {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.reserveBtn {
+  display: flex;
+  width: 250px;
+  margin-left: 50px;
+  cursor: pointer;
+  justify-content: center;
+  color: white;
+  box-shadow: 2px 2px black;
+  border: 3px solid black;
+  padding: 12px 0px 12px 0px;
+  background-color: #ffb85a;
+}
+
+.image1 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.image2 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.image3 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.image4 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.bodyContainer {
+  display: flex;
+  border-bottom: 2px solid black;
+}
+
+.description {
+  padding-right: 25px;
+  margin-top: -10px;
+}
+
+.location {
+  padding-bottom: 15px;
+}
+
+.details {
+  display: flex;
+  margin: none;
+  flex-direction: column;
+}
+
+.spotLocation {
+  padding-bottom: 15px;
+}

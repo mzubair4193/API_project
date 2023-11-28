@@ -42,74 +42,80 @@ function SignupFormModal() {
     };
 
     return (
-        <>
-            <h1>Sign Up</h1>
+        <div className='mainContainer'>
+            <h1 className='signupHeader'>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Email
                     <input
                         type="text"
+                        placeholder='Email'
+                        className='input'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </label>
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p className='inputError'>{errors.email}</p>}
                 <label>
-                    Username
                     <input
                         type="text"
+                        placeholder='Username'
+                        className='input'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </label>
-                {errors.username && <p>{errors.username}</p>}
+                {errors.username && <p className='inputError'>{errors.username}</p>}
                 <label>
-                    First Name
                     <input
                         type="text"
+                        placeholder='First Name'
+                        className='input'
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                     />
                 </label>
-                {errors.firstName && <p>{errors.firstName}</p>}
+                {errors.firstName && <p className='inputError'>{errors.firstName}</p>}
                 <label>
-                    Last Name
                     <input
                         type="text"
+                        placeholder='Last Name'
+                        className='input'
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
                     />
                 </label>
-                {errors.lastName && <p>{errors.lastName}</p>}
+                {errors.lastName && <p className='inputError'>{errors.lastName}</p>}
                 <label>
-                    Password
                     <input
                         type="password"
+                        placeholder='Password'
+                        className='input'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </label>
-                {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p className='inputError'>{errors.password}</p>}
                 <label>
-                    Confirm Password
                     <input
                         type="password"
+                        placeholder='Confirm Password'
+                        className='input'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
                 </label>
                 {errors.confirmPassword && (
-                    <p>{errors.confirmPassword}</p>
+                    <p className='inputError'>{errors.confirmPassword}</p>
                 )}
-                <button type="submit">Sign Up</button>
+                <button type="submit" className="signupButton" disabled={!confirmPassword || !email || !username || !firstName || !lastName || !password || username.length < 4 || password.length < 6}>Sign Up</button>
             </form>
-        </>
+        </div>
     );
 }
 
