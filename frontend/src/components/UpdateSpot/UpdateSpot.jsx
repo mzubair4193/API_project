@@ -284,7 +284,7 @@ function UpdateSpot() {
                     ></input>
                 </div>
                 <div className='casButton'>
-                    <button type='submit' className='uas' onClick={validateInputs}>
+                    <button type='submit' className='uas' onClick={handleUpdate}>
                         Update Spot
                     </button>
                 </div>
