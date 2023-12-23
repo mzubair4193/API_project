@@ -140,6 +140,157 @@ module.exports = {
         spotId: 6,
         url: 'https://tinyurl.com/5223dfet',
         preview: false
+      },
+      /***********************************************************************************************/
+      {
+        spotId: 7,
+        url: 'http://tinyurl.com/uc495akx',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'http://tinyurl.com/3c95p3dv',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'http://tinyurl.com/4xcn8zkj',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'http://tinyurl.com/4fzsnmm5',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'http://tinyurl.com/55hwyyex',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'http://tinyurl.com/yywfx29y',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'http://tinyurl.com/4v8pb22c',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'http://tinyurl.com/3vfz9dk9',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'http://tinyurl.com/3wp37pmk',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'http://tinyurl.com/32kuuzdm',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'http://tinyurl.com/yk9svuf5',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'http://tinyurl.com/mshbu7kt',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'http://tinyurl.com/4h8vnzc4',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'http://tinyurl.com/2p86vffj',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'http://tinyurl.com/5ddh8eny',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'http://tinyurl.com/ypfwz8zy',
+        preview: false
+      },
+     {
+        spotId: 10,
+        url: 'http://tinyurl.com/27my6d7c',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'http://tinyurl.com/5n99bm22',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'http://tinyurl.com/22wz4dxm',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'http://tinyurl.com/yrs7z2wk',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'http://tinyurl.com/mrt8f73n',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'http://tinyurl.com/5ep2ujwb',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'http://tinyurl.com/br97wbbm',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'http://tinyurl.com/yckh29hw',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'http://tinyurl.com/bdzdn2ru',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'http://tinyurl.com/bdfuckrm',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'http://tinyurl.com/22bt4rts',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'http://tinyurl.com/y4cpj8vp',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'http://tinyurl.com/4xn93yxs',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'http://tinyurl.com/32zmuak5',
+        preview: false
       }
     ], { validate: true })
   },

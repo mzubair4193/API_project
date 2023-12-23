@@ -110,7 +110,7 @@ router.get("/", queryFilters, async (req, res) => {
             },
         });
 
-        spotsJSON[i].avgRating = total > 0 ? sum / total : 'Spot not rated';
+        spotsJSON[i].avgRating = total > 0 ? sum / total : 'New';
     }
 
     res.json({ Spots: spotsJSON, page: page, size: size });
@@ -138,7 +138,7 @@ router.get('/current', requireAuth, async (req, res) => {
         });
         let sum = starRatings.reduce((prevNum, currNum) => prevNum + currNum, 0)
         let avgRating = parseFloat((sum / starRatings.length).toFixed(2))
-        spot.avgRating = avgRating ? avgRating : `Spot not rated`
+        spot.avgRating = avgRating ? avgRating : `New`
         const spotImage = await SpotImage.findOne({ where: { spotId: spot.id } })
         if (spotImage) {
             spot.previewImage = spotImage.url;
@@ -207,7 +207,7 @@ router.get('/:spotId', async (req, res) => {
     spot.updatedAt = spot.updatedAt.toLocaleString('en-US', { timeZone });
 
 
-    spot.avgRating = avgRating ? avgRating : `Spot not rated`
+    spot.avgRating = avgRating ? avgRating : `New`
     spot.SpotImages = spotImage
     spot.Owner = owner
 
