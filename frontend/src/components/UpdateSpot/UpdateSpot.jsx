@@ -50,8 +50,7 @@ function UpdateSpot() {
         setImgFive(spot.imgFive || "")
     }, [spot])
 
-    // if (!spot) return null
-    // if (!spot.SpotImages) return null
+ 
 
     function validateInputs(e) {
         e.preventDefault()
