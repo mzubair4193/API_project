@@ -86,7 +86,7 @@ function UpdateSpot() {
                 name,
                 price
             }
-
+                
             const res = await dispatch(spotUpdate(updatedSpot, spot.id))
 
             if (res) {
@@ -258,7 +258,7 @@ function UpdateSpot() {
                         value={imgTwo}
                         onChange={(e) => setImgTwo(e.target.value)}
                     ></input>
-                    <p className='locaInputs'>Image 2</p>
+                    <p className='locaInputs'>Image 2</p>http://localhost:5173/
                     <input
                         type="text"
                         placeholder="Image URL"
