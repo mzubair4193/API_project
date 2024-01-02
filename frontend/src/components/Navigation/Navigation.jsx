@@ -30,11 +30,12 @@ function Navigation({ isLoaded }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
     const listClassName = "navigationTop" + (showMenu ? "" : " hidden");
+    
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
             <>
-                {/* <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink> */}
+                <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink>
                 <ProfileButton user={sessionUser} />
             </>
         );
@@ -69,7 +70,6 @@ function Navigation({ isLoaded }) {
 
         );
     }
-    //blah
     return (
         <ul className='navigationBar'>
             <>
@@ -77,7 +77,7 @@ function Navigation({ isLoaded }) {
             </>
 
             <div className='newSpotNav'>
-                <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink>
+                {/* <NavLink to='/spots/new' className='newSpot'>Create A Spot</NavLink> */}
                 {isLoaded && sessionLinks}
             </div>
 

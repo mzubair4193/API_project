@@ -10,7 +10,8 @@
 .location {
   text-decoration: none;
   padding-left: 5px;
-  width: 130px
+  width: 130px;
+  height: 100px;
 }
 
 .spotContainer {

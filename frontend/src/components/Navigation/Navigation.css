@@ -19,6 +19,7 @@ html {
 
 .newSpot {
   display: flex;
+  justify-content: space-between;
   text-decoration: none;
   align-items: center;
   font-family: sans-serif;
