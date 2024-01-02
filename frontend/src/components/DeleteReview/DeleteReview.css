@@ -10,7 +10,7 @@
   font-family: sans-serif;
 }
 
-.deleteConfirm {
+.deleteConfirm.red {
   color: white;
   background-color: #ffcb5a;
   box-shadow: 2px 2px 5px black;

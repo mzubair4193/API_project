@@ -12,14 +12,6 @@
   margin-bottom: 1px;
 }
 
-.deleteBtn {
-  color: white;
-  background-color: #ffa45a;
-  box-shadow: 2px 2px black;
-  width: 200px;
-  padding: 8px 12px 8px 12px;
-}
-
 .cancelBtn {
   color: white;
   background-color: #414143;

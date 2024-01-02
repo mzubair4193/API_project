@@ -32,6 +32,7 @@
 .button {
   display: flex;
   color: black;
+  width: fit-content;
   background-color: rgb(245, 198, 98);
   border: 1px solid black
 }

@@ -2,14 +2,16 @@
   padding-top: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   gap: 5px;
+  flex-direction: column;
+
 }
 
 .reviewHeader {
   /* outline: 3px solid red; */
   display: inline-flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-content: center;
   align-items: center;
   height: 40px;
@@ -34,6 +36,19 @@ button {
   color: red;
 } */
 
-.deleteReviewContainer{
+.deleteReviewContainer {
   padding-top: 5px;
+}
+
+.date {
+  display: inline-flex;
+  gap: 5px
+}
+
+.individualReview {
+  border: 1px solid black;
+  width: 300px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px 10px 10px 10px
 }

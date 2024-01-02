@@ -23,9 +23,6 @@ function UpdateSpot() {
     const [price, setPrice] = useState(spot.price)
     const [errors, setErrors] = useState([])
 
-    const validImage = [".jpg", ".jpeg", ".png"]
-    const errs = []
-    const imgs = []
 
 
     useEffect(() => {
@@ -46,7 +43,24 @@ function UpdateSpot() {
 
 
 
-    function validateInputs(e) {
+    function validateInputs() {
+        // e.preventDefault()
+        const errs = []
+        console.log("Validate is running")
+        if (!country) errs.push("Country is required")
+        if (!address) errs.push("Address is required")
+        if (!city) errs.push("City is required")
+        if (!state) errs.push("State is required")
+        if (lat < -90 || lat > 90 || !lat) errs.push("Valid Latitude is required")
+        if (lng < -180 || lng > 180 || !lng) errs.push("Valid Longitude is required")
+        if (description.length < 30) errs.push("Description must be at least 30 characters")
+        if (!name) errs.push("Title is required")
+        if (!price) errs.push("Price is required")
+        setErrors(errs)
+        console.log(errs)
+    }
+
+    const handleUpdate = async (e) => {
         e.preventDefault()
         const errs = []
         console.log("Validate is running")
@@ -55,16 +69,11 @@ function UpdateSpot() {
         if (!city) errs.push("City is required")
         if (!state) errs.push("State is required")
         if (lat < -90 || lat > 90 || !lat) errs.push("Valid Latitude is required")
-        if (lng < -180 || lng > 180 || !lat) errs.push("Valid Longitude is required")
+        if (lng < -180 || lng > 180 || !lng) errs.push("Valid Longitude is required")
         if (description.length < 30) errs.push("Description must be at least 30 characters")
         if (!name) errs.push("Title is required")
         if (!price) errs.push("Price is required")
         setErrors(errs)
-       console.log(errors)
-    }
-
-    const handleUpdate = async (e) => {
-        e.preventDefault()
         console.log("handleUpdate is running")
         if (!errors.length) {
             const updatedSpot = {
@@ -131,7 +140,7 @@ function UpdateSpot() {
                     <label className="citystate">
                         <div className='titleAndErrors'>
                             <p className='locaInputs'>City</p>
-                            <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                            <p className="error">{errors.find((error) => error.includes("City"))}</p>
                         </div>
                         <input
                             type='text'
@@ -142,7 +151,7 @@ function UpdateSpot() {
                         ></input>
                         <div className='titleAndErrors'>
                             <p className='locaInputs'>State</p>
-                            <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                            <p className="error">{errors.find((error) => error.includes("State"))}</p>
                         </div>
 
                         <input
@@ -241,4 +250,3 @@ function UpdateSpot() {
 }
 
 export default UpdateSpot
-
