@@ -23,7 +23,7 @@ function HomePage() {
                 </div>
                 <div className='spotPrice'>
                     <p className='location'>{spot.city}, {spot.state}</p>
-                    <p className='price'>${spot.price}.00</p>
+                    <p className='price'>${spot.price}.00 night</p>
                 </div>
                 <div className='reviewsContainer'>
                     <div className='reviews'>

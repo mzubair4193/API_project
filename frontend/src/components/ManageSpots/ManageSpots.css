@@ -12,13 +12,13 @@
   border-radius: 20px;
 }
 
-.updateDelete {
+.updateDeleteContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.deleteButton .button {
+.deleteBtn .button {
   width: fit-content;
   padding: 4px 8px 4px 8px;
   background-color: rgb(35, 28, 28);
@@ -32,7 +32,7 @@
       1px 1px 0 black;
 }
 
-.deleteButton .button:hover {
+.deleteBtn .button:hover {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
@@ -61,7 +61,7 @@
   text-decoration: none;
 }
 
-.returnHome {
+.return {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

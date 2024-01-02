@@ -4,3 +4,11 @@ body{
   background-color: #FFFFF0;
   display: inline;
 }
+
+.red{
+  background-color: red;
+}
+
+.text {
+  color: red;
+}

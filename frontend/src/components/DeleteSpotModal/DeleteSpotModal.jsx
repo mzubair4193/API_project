@@ -24,9 +24,9 @@ function DeleteModal({ spot }) {
             {spotExists && (
                 <div className='deleteContainer'>
                     <h2 className='confirmText'>Confirm Delete</h2>
-                    <p className='confirmationText'>Are you sure you want to delete this spot?</p>
-                    <button className='deleteBtn' onClick={deleteSpotModal}>Yes, I am Sure</button>
-                    <button className='cancelBtn' onClick={cancelDelete}>No, Keep Spot</button>
+                    <p className='confirmationText'>Are you sure you want to remove this spot?</p>
+                    <button className='deleteBtn red' onClick={deleteSpotModal}>Yes (Delete Spot)</button>
+                    <button className='cancelBtn' onClick={cancelDelete}>No (Keep Spot)</button>
                 </div>
             )}
         </div>

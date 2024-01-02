@@ -44,14 +44,15 @@ function CreateReviewModal({ spot, user }) {
     }
     return (
         <div className='createReviewModalContent'>
-            <h1 className="reviewHeader">Describe Your Experience</h1>
+            <h1 className="reviewHeader">How was your stay?</h1>
             <form onSubmit={handleSubmit} className='reviewModalForm'>
                 <textarea
                     className="reviewTextArea"
                     type='text'
                     value={reviewText}
+                    maxLength={200}
                     onChange={(e) => setReviewText(e.target.value)}
-                    placeholder="Enter review here"
+                    placeholder="Leave your review here..."
                     required
                 />
                 <div className="starBoxContainer">
@@ -63,7 +64,7 @@ function CreateReviewModal({ spot, user }) {
                     <p className="starText">Stars</p>
                 </div>
                 <button className="submitReviewBtn" disabled={reviewText.length < 10 || stars < 1}>
-                    Submit
+                    Submit Your Review
                 </button>
             </form>
         </div>

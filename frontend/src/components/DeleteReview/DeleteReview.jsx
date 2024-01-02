@@ -30,9 +30,9 @@ function DeleteReview({ spot, review }) {
 
     return (
         <div className='deleteReviewModal'>
-            <h2 className='confirmationTitle'>Confirm Deletion</h2>
+            <h2 className='confirmationTitle '>Confirm Delete</h2>
             <p className="confirmation">Are you sure you want to delete this review?</p>
-            <button className="deleteConfirm" onClick={deleteReview}>
+            <button className="deleteConfirm red" onClick={deleteReview}>
                 Yes (Delete Review)
             </button>
             <button className="cancelDelete" onClick={cancelDelete}>

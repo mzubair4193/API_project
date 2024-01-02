@@ -21,8 +21,11 @@ function UpdateSpot() {
     const [description, setDescription] = useState(spot.description)
     const [name, setName] = useState(spot.name)
     const [price, setPrice] = useState(spot.price)
-
     const [errors, setErrors] = useState([])
+
+    const validImage = [".jpg", ".jpeg", ".png"]
+    const errs = []
+    const imgs = []
 
 
     useEffect(() => {
@@ -57,7 +60,7 @@ function UpdateSpot() {
         if (!name) errs.push("Title is required")
         if (!price) errs.push("Price is required")
         setErrors(errs)
-        // return errors.length === 0
+       console.log(errors)
     }
 
     const handleUpdate = async (e) => {
@@ -89,7 +92,7 @@ function UpdateSpot() {
     // const prevImg = spot.previewImage
     return (
         <div className='formContainer'>
-            <form className='updateSpotForm' onSubmit={validateInputs}>
+            <form className='updateSpotForm' onSubmit={handleUpdate}>
                 <div className='firstBox'>
                     <div className='formText'>
                         <h1 className='udtHeader'>Update a Spot</h1>
@@ -227,7 +230,7 @@ function UpdateSpot() {
                 </div>
 
                 <div className='casButton'>
-                    <button type='submit' className='uas' onClick={handleUpdate}>
+                    <button type='submit' className='uas' onClick={validateInputs}>
                         Update Spot
                     </button>
                 </div>

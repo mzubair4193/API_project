@@ -104,7 +104,7 @@ function Reviews({ spotId }) {
                         ) : null}
                     </div>
 
-                )).reverse()
+                ))
                 }
             </div>
         </div>

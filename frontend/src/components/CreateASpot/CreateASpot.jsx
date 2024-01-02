@@ -151,7 +151,7 @@ function CreateASpot() {
             <form className='createSpotContainer' onSubmit={handleSubmit}>
                 <div className='firstContainer'>
                     <div className='formText'>
-                        <h1>Create A Spot</h1>
+                        <h1>Create a New Spot</h1>
                         <h2>Where&apos;s your place located?</h2>
                         <p>Guests will only get your exact address once they booked a reservation</p>
                     </div>
@@ -166,6 +166,7 @@ function CreateASpot() {
                             className='country'
                             id='inputText'
                             value={country}
+                            maxLength={40}
                             onChange={(e) => setCountry(e.target.value)}
                             required
                         ></input>
@@ -173,7 +174,7 @@ function CreateASpot() {
                     </label>
                     <label>
                         <div className='titleAndErrors'>
-                            <p className='locaInputs'>Address</p>
+                            <p className='locaInputs'>StreetAddress</p>
                             <p className="error">{errors.find((error) => error.includes("Address"))}</p>
                         </div>
                         <input
@@ -182,6 +183,7 @@ function CreateASpot() {
                             className='address'
                             id='inputText'
                             value={address}
+                            maxLength={40}
                             onChange={(e) => setAddress(e.target.value)}
                         ></input>
 
@@ -190,6 +192,7 @@ function CreateASpot() {
                         <div className='titleAndErrors'>
                             <p className='locaInputs'>City</p>
                             <p className="error">{errors.find((error) => error.includes("Address"))}</p>
+                            {city.length === 40 && <p className="text" > 40 characters only</p>} 
                         </div>
                         <input
                             type='text'
@@ -197,6 +200,7 @@ function CreateASpot() {
                             className='city'
                             id='inputText'
                             value={city}
+                            maxLength={40}
                             onChange={(e) => setCity(e.target.value)}
                         ></input>
                         <div className='titleAndErrors'>
@@ -209,6 +213,7 @@ function CreateASpot() {
                             className="state"
                             id='inputText'
                             value={state}
+                            maxLength={40}
                             onChange={(e) => setState(e.target.value)}
                         ></input>
 
@@ -217,9 +222,10 @@ function CreateASpot() {
                         <div className='titleAndErrors'>
                             <p className='locaInputs'>Latitude</p>
                             <p className="error">{errors.find((error) => error.includes("Latitude"))}</p>
+                            {(lat >= 90 || lat <= -90) && <p className="text" > Must be between 90 to -90</p>}
                         </div>
                         <input
-                            type='text'
+                            type='number'
                             placeholder="Latitude"
                             className="lat"
                             id='inputText'
@@ -229,9 +235,10 @@ function CreateASpot() {
                         <div className='titleAndErrors'>
                             <p className='locaInputs'>Longitude</p>
                             <p className="error">{errors.find((error) => error.includes("Longitude"))}</p>
+                            {(lng >= 180 || lng <= -180) && <p className="text" > Must be between 180 to -180</p>}
                         </div>
                         <input
-                            type='text'
+                            type='number'
                             placeholder="Longitude"
                             className="lng"
                             id='inputText'
@@ -253,6 +260,7 @@ function CreateASpot() {
                         className="desc"
                         id='inputText'
                         value={description}
+                        maxLength={340}
                         onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                 </div>
@@ -268,6 +276,7 @@ function CreateASpot() {
                         placeholder="Name of your spot"
                         id='inputText'
                         value={name}
+                        maxLength={40}
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </div>
@@ -280,7 +289,7 @@ function CreateASpot() {
                     </div>
                     <div className='priceContainer'>
                         $ <input
-                            type="text"
+                            type="number"
                             placeholder="Price per night(USD)"
                             id='inputText'
                             className='priceInput'

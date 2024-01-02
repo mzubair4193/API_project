@@ -23,7 +23,7 @@ function ManageUserSpots() {
 
     const usersSpots = spots.filter((spot) => spot.ownerId === user.id)
 
-    const manageSpotDisplay = usersSpots?.map((spot) => (
+    const manageSpotContainer = usersSpots?.map((spot) => (
         <div key={spot?.id} className="spotContainer">
             <NavLink to={`/spots/${spot.id}`}>
                 <div className='imageContainer'>
@@ -41,17 +41,25 @@ function ManageUserSpots() {
                     </div>
                 </div>
             </NavLink >
-            <div className='updateDelete'>
+            <div className='updateDeleteContainer'>
                 <button className='updateASpot'>
                     <NavLink to={`/spots/${spot.id}/edit`} className='updateNavLink'>Update</NavLink>
                 </button>
-                <div className='deleteButton'><OpenModalButton buttonText={"Delete"} modalComponent={<DeleteModal spot={spot} />} /></div>
+                <div className='deleteBtn'><OpenModalButton buttonText={"Delete"} modalComponent={<DeleteModal spot={spot} />} /></div>
             </div>
         </div >
     ))
     return (
-        <div className='returnHome'>
-            <div className='manage'>{manageSpotDisplay}</div>
+        
+        <div className='return'>
+            <h1>Manage Spots</h1>
+
+            {usersSpots.length == 0 && (
+            <NavLink to="/spots/new" className="spotManage">
+              Create A Spot
+           </NavLink>)
+            }
+            <div className='manage'>{manageSpotContainer}</div>
         </div>
     )
 }

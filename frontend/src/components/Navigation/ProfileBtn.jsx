@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
                     <i className="fa-regular fa-user"></i>
                 </button>
                 <ul className={listClassName} ref={listRef}>
-                    <ul className='greeting'><>Hello, {user.username}</></ul>
+                    <ul className='greeting'><>Hello, {user.firstName}</></ul>
                     <ul className='emailText'>{user.email}</ul>
                     <ul className='manageSpots'> <NavLink to='/spots/current' onClick={toggleMenu} className='navContainer'>Manage Spots</NavLink></ul>
                     <ul className='logoutBtn'>
